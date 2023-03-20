@@ -64,20 +64,23 @@ class LoginScreen extends StatelessWidget {
                     height: 40,
                   ),
                   // Textfomrfield for enter the username of the user to login.
-                  const CustomTextFormField(
+
+                  CustomTextFormField(
                     hintText: 'Enter your email',
                     prifixIconPath:
                         'assets/icons/icon_of_email_within_a_circle.png',
+                    validator: () {},
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   // Textfomrfield for enter the password of the user to login.
-                  const CustomTextFormField(
+                  CustomTextFormField(
                     hintText: '* * * * * * *',
                     prifixIconPath:
                         'assets/icons/icon_of_lock_within_a_circle.png',
                     obscureText: true,
+                    validator: () {},
                   ),
                   const SizedBox(
                     height: 20,
@@ -121,7 +124,7 @@ class LoginScreen extends StatelessWidget {
                     ..onTap = () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const SignInScreen(),
+                          builder: (context) => SignInScreen(),
                         ),
                       );
                     },

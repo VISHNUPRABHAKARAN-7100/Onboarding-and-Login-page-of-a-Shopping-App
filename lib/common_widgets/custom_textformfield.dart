@@ -7,11 +7,13 @@ class CustomTextFormField extends StatelessWidget {
     required this.hintText,
     required this.prifixIconPath,
     this.obscureText = false,
+    required this.validator,
   });
 
   final String hintText;
   final String prifixIconPath;
   final bool obscureText;
+  final Function() validator;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +45,9 @@ class CustomTextFormField extends StatelessWidget {
       textInputAction: TextInputAction.next,
       textAlign: TextAlign.center,
       cursorColor: ConstantColors.constantBlackColor,
+      validator: (value) {
+        return validator();
+      },
     );
   }
 }

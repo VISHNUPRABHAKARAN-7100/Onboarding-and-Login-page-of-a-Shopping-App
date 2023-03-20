@@ -11,7 +11,15 @@ import '../../utils/constant_colors.dart';
 /// of the user.
 
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({super.key});
+  SignInScreen({super.key});
+
+  // Form key for sign in form
+  final GlobalKey<FormState> _signInFormKey = GlobalKey<FormState>();
+
+  // Textediting controllers for sign in form.
+  final _emailEditingController = TextEditingController();
+  final _passwordEditingController = TextEditingController();
+  final _confirmPasswordEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,67 +33,96 @@ class SignInScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
               width: double.infinity,
               height: size.height - 50,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Text widget to greeting to the user.
-                  Text(
-                    'Create Account',
-                    style: GoogleFonts.roboto(
-                      fontSize: 40,
-                      fontWeight: FontWeight.w600,
+              child: Form(
+                key: _signInFormKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Text widget to greeting to the user.
+                    Text(
+                      'Create Account',
+                      style: GoogleFonts.roboto(
+                        fontSize: 40,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  // Text widget to greeting to the user
-                  Text(
-                    'to get started now!',
-                    style: GoogleFonts.alegreya(
-                      fontSize: 25,
+                    const SizedBox(
+                      height: 10,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  // Textfomrfield for enter the username of the user to login.
-                  const CustomTextFormField(
-                    hintText: 'Enter your email',
-                    prifixIconPath:
-                        'assets/icons/icon_of_person_within_a_circle.png',
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // Textfomrfield for enter the password of the user to login.
-                  const CustomTextFormField(
-                    hintText: 'Password',
-                    prifixIconPath:
-                        'assets/icons/icon_of_lock_within_a_circle.png',
-                    obscureText: true,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const CustomTextFormField(
-                    hintText: 'Confirm Password',
-                    prifixIconPath:
-                        'assets/icons/icon_of_email_within_a_circle.png',
-                    obscureText: true,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // Button for signin.
-                  CustomButton(
-                    buttonTitle: 'SIGNIN',
-                    buttonColor: ConstantColors.constantYellowColor,
-                    onPressed: () {},
-                    bottonWidth: double.infinity,
-                  )
-                ],
+                    // Text widget to greeting to the user
+                    Text(
+                      'to get started now!',
+                      style: GoogleFonts.alegreya(
+                        fontSize: 25,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    // Textfomrfield for enter the username of the user to login.
+                    CustomTextFormField(
+                      hintText: 'Enter your email',
+                      prifixIconPath:
+                          'assets/icons/icon_of_email_within_a_circle.png',
+                      validator: () {
+                        if (_emailEditingController.text.isEmpty) {
+                          return 'Email is required';
+                        }
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    // Textfomrfield for enter the password of the user to login.
+                    CustomTextFormField(
+                      hintText: 'Password',
+                      prifixIconPath:
+                          'assets/icons/icon_of_lock_within_a_circle.png',
+                      obscureText: true,
+                      validator: () {
+                        if (_passwordEditingController.text.isEmpty) {
+                          return 'Password is required';
+                        } else if (_passwordEditingController.text.length <=
+                            6) {
+                          return 'Password should be atlest 6 letters';
+                        }
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    CustomTextFormField(
+                      hintText: 'Confirm Password',
+                      prifixIconPath:
+                          'assets/icons/icon_of_lock_within_a_circle.png',
+                      obscureText: true,
+                      validator: () {
+                        if (_confirmPasswordEditingController.text.isEmpty) {
+                          return 'Password is required';
+                        } else if (_confirmPasswordEditingController
+                                .text.length <=
+                            6) {
+                          return 'Password should be atlest 6 letters';
+                        }
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    // Button for signin.
+                    CustomButton(
+                      buttonTitle: 'SIGNIN',
+                      buttonColor: ConstantColors.constantYellowColor,
+                      onPressed: () {
+                        if (_signInFormKey.currentState!.validate()) {
+                          print('object');
+                        }
+                      },
+                      bottonWidth: double.infinity,
+                    )
+                  ],
+                ),
               ),
             ),
           ),
