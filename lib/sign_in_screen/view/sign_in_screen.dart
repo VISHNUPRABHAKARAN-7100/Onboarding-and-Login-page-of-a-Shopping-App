@@ -2,19 +2,16 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:onboarding_and_login_page_of_a_shopping_app/common_widgets/custom_button.dart';
-import 'package:onboarding_and_login_page_of_a_shopping_app/common_widgets/custom_textformfield.dart';
-import 'package:onboarding_and_login_page_of_a_shopping_app/utils/constant_colors.dart';
+import '../../common_widgets/custom_textformfield.dart';
+import '../../utils/constant_colors.dart';
 
-import '../../sign_in_screen/view/sign_in_screen.dart';
+/// If the user have no account
+/// then user can create a new account through
+/// this screen with providing the creditials
+/// of the user.
 
-/// This screen is for showing the
-/// login screen, this screen contains
-/// greetings to the user and
-/// two text form field to enter
-/// the credentials of the user.
-
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +22,16 @@ class LoginScreen extends StatelessWidget {
         child: Center(
           child: SingleChildScrollView(
             child: Container(
-              height: size.height - 50,
-              width: double.infinity,
               padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
+              width: double.infinity,
+              height: size.height - 50,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   // Text widget to greeting to the user.
                   Text(
-                    'Hello there!',
+                    'Create Account',
                     style: GoogleFonts.roboto(
                       fontSize: 40,
                       fontWeight: FontWeight.w600,
@@ -45,19 +42,9 @@ class LoginScreen extends StatelessWidget {
                   ),
                   // Text widget to greeting to the user
                   Text(
-                    'Welcome back',
+                    'to get started now!',
                     style: GoogleFonts.alegreya(
                       fontSize: 25,
-                    ),
-                  ),
-                  // Text widget to greeting to the user
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Text(
-                    'Sign in to continue to wardrobe',
-                    style: TextStyle(
-                      color: Colors.grey,
                     ),
                   ),
                   const SizedBox(
@@ -67,14 +54,14 @@ class LoginScreen extends StatelessWidget {
                   const CustomTextFormField(
                     hintText: 'Enter your email',
                     prifixIconPath:
-                        'assets/icons/icon_of_email_within_a_circle.png',
+                        'assets/icons/icon_of_person_within_a_circle.png',
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   // Textfomrfield for enter the password of the user to login.
                   const CustomTextFormField(
-                    hintText: '* * * * * * *',
+                    hintText: 'Password',
                     prifixIconPath:
                         'assets/icons/icon_of_lock_within_a_circle.png',
                     obscureText: true,
@@ -82,21 +69,30 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  // Button for Login after entering the credentials.
+                  const CustomTextFormField(
+                    hintText: 'Confirm Password',
+                    prifixIconPath:
+                        'assets/icons/icon_of_email_within_a_circle.png',
+                    obscureText: true,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  // Button for signin.
                   CustomButton(
-                    buttonTitle: 'LOGIN',
+                    buttonTitle: 'SIGNIN',
                     buttonColor: ConstantColors.constantYellowColor,
                     onPressed: () {},
                     bottonWidth: double.infinity,
-                  ),
+                  )
                 ],
               ),
             ),
           ),
         ),
       ),
-      // Text widget to navigate to SignUp screen,
-      // if the user have no account in our company.
+      // Text widget to navigate to Login screen,
+      // if the user have already an account in our company.
       bottomNavigationBar: SizedBox(
         height: 50,
         child: Center(
@@ -104,14 +100,14 @@ class LoginScreen extends StatelessWidget {
             text: TextSpan(
               style: const TextStyle(color: Colors.grey),
               children: [
-                const TextSpan(text: 'New User /'),
+                const TextSpan(text: 'Already have an account? /'),
                 const WidgetSpan(
                   child: SizedBox(
                     width: 5,
                   ),
                 ),
                 TextSpan(
-                  text: 'SignUp',
+                  text: 'Login now',
                   style: const TextStyle(
                     fontWeight: FontWeight.w700,
                     color: ConstantColors.constantYellowColor,
@@ -119,11 +115,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const SignInScreen(),
-                        ),
-                      );
+                      Navigator.of(context).pop();
                     },
                 ),
               ],
