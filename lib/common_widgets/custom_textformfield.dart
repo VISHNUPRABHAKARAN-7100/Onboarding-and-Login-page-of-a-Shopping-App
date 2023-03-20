@@ -6,24 +6,41 @@ class CustomTextFormField extends StatelessWidget {
     super.key,
     required this.hintText,
     required this.prifixIconPath,
+    this.obscureText = false,
   });
 
   final String hintText;
   final String prifixIconPath;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: obscureText,
       decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
         hintText: hintText,
         hintStyle: const TextStyle(
           color: ConstantColors.constantBlackColor,
         ),
         fillColor: Colors.grey.shade200,
-        border: InputBorder.none,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.grey.shade200),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: ConstantColors.constantYellowColor,
+          ),
+        ),
         filled: true,
-      prefixIcon: CircleAvatar(radius: 10,)),
-      
+        prefixIcon: Image.asset(
+          prifixIconPath,
+        ),
+      ),
+      textInputAction: TextInputAction.next,
       textAlign: TextAlign.center,
       cursorColor: ConstantColors.constantBlackColor,
     );
